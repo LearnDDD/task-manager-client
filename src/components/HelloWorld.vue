@@ -118,12 +118,12 @@ export default class HelloWorld extends Vue {
   private getDatas() {
     return [
       {
-        name: '一郎',
-        department: 'ほげほげ'
+        name: "一郎",
+        department: "ほげほげ"
       },
       {
-        name: 'ジロー',
-        department: 'ふがふが'
+        name: "ジロー",
+        department: "ふがふが"
       }
     ];
   }
