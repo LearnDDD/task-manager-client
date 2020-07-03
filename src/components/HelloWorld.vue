@@ -3,22 +3,6 @@
 
     <b-table :data="tasks" :columns="columnSettings"/>
 
-<!--    <table>-->
-<!--      <tr>-->
-<!--        <td>名前</td>-->
-<!--        <td>部署</td>-->
-<!--      </tr>-->
-<!--    </table>-->
-<!--    <table>-->
-<!--      <tr>-->
-<!--        <td>id</td>-->
-<!--        <td>title</td>-->
-<!--      </tr>-->
-<!--      <tr v-for="task in tasks" :key="task.id">-->
-<!--        <td>{{ task.id }}</td>-->
-<!--        <td>{{ task.title }}</td>-->
-<!--      </tr>-->
-<!--    </table>-->
     <h1>{{ msg }}</h1>
   </div>
 </template>
@@ -26,8 +10,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { ColumnSetting } from '@/types/table/Table'
-
-@Component
+@Component({
+})
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
   private tasks: { id: number; title: string }[] = [
@@ -47,11 +31,11 @@ export default class HelloWorld extends Vue {
     }
   ]
 
-  private mounted () {
+  private mounted() {
     this.loadTasks()
   }
 
-  private loadTasks () {
+  private loadTasks() {
     this.axios
       .get('http://localhost:8080/task/list')
       .then(response => {

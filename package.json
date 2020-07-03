@@ -55,6 +55,9 @@
     "rules": {
       "no-extra-semi": "warn",
       "quotes": ["warn", "single"],
+      "space-before-function-paren": ["error", "never"],
+      "no-useless-return": "off",
+      "@typescript-eslint/no-inferrable-types": "off",
       "comma-dangle": ["warn", {
         "arrays": "ignore",
         "objects": "ignore",
