@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "buefy": "^0.8.20",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
@@ -51,7 +52,15 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {}
+    "rules": {
+      "no-extra-semi": "warn",
+      "quotes": ["warn", "single"],
+      "comma-dangle": ["warn", {
+        "arrays": "ignore",
+        "objects": "ignore",
+        "functions": "never"
+      }]
+    }
   },
   "browserslist": [
     "> 1%",

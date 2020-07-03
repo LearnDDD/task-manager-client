@@ -1,27 +1,31 @@
 <template>
   <div class="hello">
-    <table>
-      <tr>
-        <td>名前</td>
-        <td>部署</td>
-      </tr>
-    </table>
-    <table>
-      <tr>
-        <td>id</td>
-        <td>title</td>
-      </tr>
-      <tr v-for="task in tasks" :key="task.id">
-        <td>{{ task.id }}</td>
-        <td>{{ task.title }}</td>
-      </tr>
-    </table>
+
+    <b-table :data="tasks" :columns="columnSettings"/>
+
+<!--    <table>-->
+<!--      <tr>-->
+<!--        <td>名前</td>-->
+<!--        <td>部署</td>-->
+<!--      </tr>-->
+<!--    </table>-->
+<!--    <table>-->
+<!--      <tr>-->
+<!--        <td>id</td>-->
+<!--        <td>title</td>-->
+<!--      </tr>-->
+<!--      <tr v-for="task in tasks" :key="task.id">-->
+<!--        <td>{{ task.id }}</td>-->
+<!--        <td>{{ task.title }}</td>-->
+<!--      </tr>-->
+<!--    </table>-->
     <h1>{{ msg }}</h1>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { ColumnSetting } from '@/types/table/Table'
 
 @Component
 export default class HelloWorld extends Vue {
@@ -29,6 +33,19 @@ export default class HelloWorld extends Vue {
   private tasks: { id: number; title: string }[] = [
     { id: 100, title: 'sample title' }
   ];
+
+  private columnSettings: ColumnSetting[] = [
+    {
+      field: 'id',
+      label: 'ID',
+      width: 50
+    },
+    {
+      field: 'title',
+      label: 'Title',
+      width: 80
+    }
+  ]
 
   private mounted () {
     this.loadTasks()
