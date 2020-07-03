@@ -62,7 +62,6 @@ export default class HelloWorld extends Vue {
         console.log(error.config)
       })
   }
-
 }
 </script>
 
