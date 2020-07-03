@@ -10,6 +10,16 @@
         <td>{{ data.department }}</td>
       </tr>
     </table>
+    <table>
+      <tr>
+        <td>id</td>
+        <td>title</td>
+      </tr>
+      <tr v-for="task in tasks" :key="task.id">
+        <td>{{ task.id }}</td>
+        <td>{{ task.title }}</td>
+      </tr>
+    </table>
     <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,
@@ -102,30 +112,67 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
   private datas: { name: string; department: string }[] = [
-    { name: "name", department: "department" }
+    { name: 'name', department: 'department' }
   ];
 
-  private mounted() {
-    this.datas = this.getDatas();
+  private tasks: { id: number; title: string }[] = [
+    { id: 100, title: 'sample title' }
+  ];
+
+  private mounted () {
+    this.datas = this.getDatas()
+    this.loadTasks()
   }
 
-  private getDatas() {
+  private loadTasks () {
+    this.axios
+      .get('http://localhost:8080/task/list')
+      .then(response => {
+        alert('then')
+        alert(Object.keys(response.data))
+        for (const task of response.data.tasks) {
+          this.tasks.push(task)
+        }
+      })
+      .catch(error => {
+        alert('catch')
+        alert(error)
+        if (error.response) {
+          // 要求がなされたとサーバがステータスコードで応答した
+          // 2XXの範囲外
+          console.log(error.response.data)
+          console.log(error.response.status)
+          console.log(error.response.headers)
+        } else if (error.request) {
+          // 要求がなされたが、応答が受信されなかった
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request)
+        } else {
+          // トリガーしたリクエストの設定に何かしらのエラーがある
+          console.log('Error', error.message)
+        }
+        console.log(error.config)
+      })
+  }
+
+  private getDatas () {
     return [
       {
-        name: "一郎",
-        department: "ほげほげ"
+        name: '一郎',
+        department: 'ほげほげ'
       },
       {
-        name: "ジロー",
-        department: "ふがふが"
+        name: 'ジロー',
+        department: 'ふがふが'
       }
-    ];
+    ]
   }
 }
 </script>
